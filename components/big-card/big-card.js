@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import styleable from 'react-styleable';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import css from './big-card.scss';
 import Card from '../card/card';
+import { vote } from './big-card-actions';
 
 @styleable(css)
 class BigCard extends Component {
   static propTypes= {
     bigCardReducer: PropTypes.string,
-    history: PropTypes.object
+    history: PropTypes.object,
+    vote: PropTypes.func
   };
 
   backToThumbCards = () => {
     const { history } = this.props;
-    history.push('/thumb-cards');
+    history.push('/');
+  }
+
+  componentDidMount() {
+    const { bigCardReducer } = this.props;
+    this.props.vote({ card: bigCardReducer });
   }
 
   render() {
@@ -30,10 +38,12 @@ class BigCard extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    bigCardReducer: state.bigCardReducer
-  };
-}
+const mapStateToProps = state => ({
+  bigCardReducer: state.bigCardReducer
+});
 
-export default connect(mapStateToProps, null)(BigCard);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  vote
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(BigCard);

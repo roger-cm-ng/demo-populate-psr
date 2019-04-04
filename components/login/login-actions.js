@@ -26,7 +26,7 @@ export const inputValidateText = (key, val) => (dispatch, getState) => {
   });
 };
 
-export const authenticate = creds => dispatch => Resources.auth(
+export const authenticate = creds => dispatch => Resources.authenticate(
   {
     body: creds,
     success: (data) => {

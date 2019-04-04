@@ -1,3 +1,24 @@
 .deck {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row wrap;
+  margin-top: 10px;
+
+  .thumb {
+    width: 100px;
+    padding: 10px;
+  }
+
+  .initial {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 40px;
+  }
 }

@@ -1,18 +1,18 @@
 import localStorage from 'local-storage';
 import Resources from '../helpers/resources';
 
-export const ESTIMATIONS_ACQUIRED = 'ESTIMATIONS_ACQUIRED';
+export const AUTHENTICATED = 'AUTHENTICATED';
 
-export const acquireEstimations = () => (dispatch) => {
+export const verifyUser = () => (dispatch) => {
   const token = localStorage.get('token');
   if (!token) {
     return;
   }
-  Resources.estimations({
+  Resources.verifyUser({
     token,
     success: (data) => {
       dispatch({
-        type: ESTIMATIONS_ACQUIRED,
+        type: AUTHENTICATED,
         payload: data
       });
     },

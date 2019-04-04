@@ -4,12 +4,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import css from './header.scss';
+import { verifyUser } from './header-actions';
 
 @styleable(css)
 class Header extends Component {
   static propTypes = {
-    history: PropTypes.object
+    history: PropTypes.object,
+    verifyUser: PropTypes.func
   };
+
+  componentDidMount() {
+    this.props.verifyUser();
+  }
 
   render() {
     const { history } = this.props;
@@ -19,7 +25,7 @@ class Header extends Component {
           <li
             className={css.nav}
             role="presentation"
-            onClick={() => { history.push('/thumb-cards'); }}
+            onClick={() => { history.push('/'); }}
           >
             CARDS
           </li>
@@ -39,7 +45,9 @@ class Header extends Component {
 const mapStateToProps = (/* state  */) => ({});
 
 const mapDispatchToProps = dispatch => bindActionCreators(
-  {},
+  {
+    verifyUser
+  },
   dispatch
 );
 

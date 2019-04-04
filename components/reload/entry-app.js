@@ -50,11 +50,11 @@ export default class EntryApp {
             />
             <Route
               exact
-              path="/thumb-cards"
+              path="/"
               component={ThumbCards}
             />
             <Route
-              path="/thumb-cards/big-card"
+              path="/big-card"
               component={BigCard}
             />
           </div>

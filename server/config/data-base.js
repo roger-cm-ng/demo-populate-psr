@@ -1,6 +1,6 @@
 import mongodb from 'mongodb';
 
-export default class dataBase {
+export default class DataBase {
   static dataBaseClient;
 
   static isConnected = false;

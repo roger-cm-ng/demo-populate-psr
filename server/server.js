@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import index from './routes/index';
 import api from './routes/api';
-import dataBase from './config/data-base';
+import DataBase from './config/data-base';
 
 const port = 3000;
 const app = express();
@@ -23,7 +23,7 @@ app.use(cookieParser());
 
 app.set('port', process.env.PORT || port);
 
-dataBase.init();
+DataBase.init();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
