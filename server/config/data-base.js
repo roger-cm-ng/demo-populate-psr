@@ -7,12 +7,14 @@ export default class dataBase {
 
   static init() {
     const { MongoClient } = mongodb;
-    const uri = 'mongodb+srv://roger:Clu5t3rU53r@scrum-vt9vg.gcp.mongodb.net/test?retryWrites=true';
+    const uri = 'mongodb+srv://roger:5crum-card@scrum-vt9vg.gcp.mongodb.net/test?retryWrites=true';
     this.dataBaseClient = new MongoClient(uri, { useNewUrlParser: true });
     this.dataBaseClient.connect((err) => {
       if (err) {
         throw new Error('Error occurred while connecting to MongoDB Atlas...\n', err);
       } else {
+        // eslint-disable-next-line no-console
+        console.log('dB connected');
         this.isConnected = true;
       }
     });
