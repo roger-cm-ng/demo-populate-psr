@@ -33,10 +33,13 @@ export default class DataBase {
         } else if (doc.length === 0) {
           fail(404, { message: 'Not found' });
         } else {
-          const { email, initial, color } = doc[0];
+          const {
+            email, firstName, lastName, color
+          } = doc[0];
           success({
             email,
-            initial,
+            firstName,
+            lastName,
             color
           });
         }

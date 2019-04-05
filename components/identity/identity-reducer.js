@@ -1,9 +1,10 @@
-import { AUTHENTICATED } from './login-actions';
+import { AUTHENTICATED } from '../login/login-actions';
 
 const initialState = {
   token: null,
   email: null,
-  initial: null,
+  firstName: null,
+  lastName: null,
   color: null
 };
 
