@@ -5,12 +5,14 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import css from './header.scss';
 import { verifyUser } from './header-actions';
+import Initial from '../initial/initial';
 
 @styleable(css)
 class Header extends Component {
   static propTypes = {
     history: PropTypes.object,
-    verifyUser: PropTypes.func
+    verifyUser: PropTypes.func,
+    identityReducer: PropTypes.object
   };
 
   componentDidMount() {
@@ -18,7 +20,7 @@ class Header extends Component {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, identityReducer } = this.props;
     return (
       <div className={css.header}>
         <ul className={css.shell}>
@@ -36,13 +38,33 @@ class Header extends Component {
           >
             DECK
           </li>
+          {
+            identityReducer.email ? (
+              <Initial
+                firstName={identityReducer.firstName}
+                lastName={identityReducer.lastName}
+                color={identityReducer.color}
+                className={css.initial}
+              />
+            ) : (
+              <li
+                className={css.nav}
+                role="presentation"
+                onClick={() => { history.push('/login'); }}
+              >
+                LOGIN
+              </li>
+            )
+          }
         </ul>
       </div>
     );
   }
 }
 
-const mapStateToProps = (/* state  */) => ({});
+const mapStateToProps = state => ({
+  identityReducer: state.identityReducer
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators(
   {

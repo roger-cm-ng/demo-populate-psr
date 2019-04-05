@@ -1,4 +1,4 @@
-import { AUTHENTICATED } from '../login/login-actions';
+import { AUTHENTICATED } from './login-actions';
 
 const initialState = {
   token: null,

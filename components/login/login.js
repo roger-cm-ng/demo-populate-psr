@@ -9,6 +9,7 @@ import { authenticate, inputValidateText } from './login-actions';
 @styleable(css)
 class Login extends Component {
   static propTypes = {
+    history: PropTypes.object,
     authenticate: PropTypes.func,
     inputValidateText: PropTypes.func,
     loginReducer: PropTypes.object
@@ -19,8 +20,8 @@ class Login extends Component {
   }
 
   loginHandler = () => {
-    const { loginReducer } = this.props;
-    this.props.authenticate(loginReducer.creds);
+    const { loginReducer, history } = this.props;
+    this.props.authenticate(loginReducer.creds, history);
   }
 
   render() {

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import css from './deck.scss';
 import { acquireEstimations } from './deck-actions';
 import Card from '../card/card';
+import Initial from '../initial/initial';
 
 @styleable(css)
 class Deck extends Component {
@@ -25,10 +26,16 @@ class Deck extends Component {
         {
           deckReducer.map((item, ind) => (
             <div key={ind}>
-              <Card className={css.thumb} svg={item.card} />
-              <div className={css.initial} style={{ backgroundColor: `#${item.color}` }}>
-                {item.initial}
-              </div>
+              <Card
+                className={css.thumb}
+                svg={item.card}
+              />
+              <Initial
+                firstName={item.firstName}
+                lastName={item.lastName}
+                color={item.color}
+                className={css.initial}
+              />
             </div>
           ))
         }

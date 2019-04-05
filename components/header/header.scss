@@ -15,3 +15,11 @@
     }
   }
 }
+
+:global(.override).initial {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  margin: 3px 0 0 10px;
+  float: right;
+}
