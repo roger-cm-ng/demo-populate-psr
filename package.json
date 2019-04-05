@@ -6,7 +6,7 @@
   "scripts": {
     "webpack-prod": "webpack --config build-config/webpack.prod",
     "webpack-dev": "webpack --config build-config/webpack.dev -d",
-    "lint": "eslint \"server/**/*.js\"",
+    "lint": "eslint \"server/**/*.js\" \"components/**/*.js\"",
     "nodemon": "nodemon ./server/bin/www --exec \"npm run lint && node\"",
     "dev": "concurrently \"npm:webpack-dev\" \"npm:nodemon\"",
     "heroku-postbuild": "if-env NODE_ENV=production && npm run webpack-prod",
@@ -36,6 +36,7 @@
     "babel-loader": "^8.0.5",
     "body-parser": "^1.18.3",
     "compression": "^1.7.4",
+    "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "css-loader": "^0.28.11",
