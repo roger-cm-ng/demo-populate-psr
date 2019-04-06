@@ -3,6 +3,7 @@ import styleable from 'react-styleable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import openSocket from 'socket.io-client';
 import css from './big-card.scss';
 import Card from '../card/card';
 import { vote } from './big-card-actions';
@@ -22,7 +23,9 @@ class BigCard extends Component {
 
   componentDidMount() {
     const { bigCardReducer } = this.props;
+    const socket = openSocket('#BASE_URL#');
     this.props.vote({ card: bigCardReducer });
+    socket.emit('vote', { card: bigCardReducer });
   }
 
   render() {

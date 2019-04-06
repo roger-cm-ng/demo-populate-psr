@@ -55,7 +55,7 @@ Api.post('/verify-user', verifyToken, (req, res) => {
   jwt.verify(req.token, jwtSecretKey, (err, authData) => {
     if (err) {
       res.status(403).json({
-        message: 'Forbidden'
+        message: 'Fobidden or token expired, please login again'
       });
     } else {
       res.status(200).json({
@@ -70,7 +70,7 @@ Api.post('/vote', verifyToken, (req, res) => {
   jwt.verify(req.token, jwtSecretKey, (err, authData) => {
     if (err) {
       res.status(403).json({
-        message: 'Forbidden'
+        message: 'Fobidden or token expired, please login again'
       });
     } else {
       Estimate.vote(req.body.card, authData);
@@ -83,7 +83,7 @@ Api.get('/estimations', verifyToken, (req, res) => {
   jwt.verify(req.token, jwtSecretKey, (err) => {
     if (err) {
       res.status(403).json({
-        message: 'Forbidden'
+        message: 'Fobidden or token expired, please login again'
       });
     } else {
       res.status(200).json(Estimate.users);

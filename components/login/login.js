@@ -44,6 +44,7 @@ class Login extends Component {
 
   componentDidMount() {
     this.props.acquireUsers();
+    this.props.inputText('email', '');
   }
 
   render() {

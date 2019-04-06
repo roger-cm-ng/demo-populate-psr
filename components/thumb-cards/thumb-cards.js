@@ -4,15 +4,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import openSocket from 'socket.io-client';
 import css from './thumb-cards.scss';
 import Card from '../card/card';
-import { chooseCard } from '../big-card/big-card-actions';
+import { chooseCard, vote } from '../big-card/big-card-actions';
 
 @styleable(css)
 class ThumbCards extends Component {
   static propTypes= {
     cardReducer: PropTypes.object,
     chooseCard: PropTypes.func,
+    vote: PropTypes.func,
     history: PropTypes.object
   };
 
@@ -26,6 +28,12 @@ class ThumbCards extends Component {
     const { history } = this.props;
     this.props.chooseCard(item);
     history.push('/big-card');
+  }
+
+  componentDidMount() {
+    const socket = openSocket('#BASE_URL#');
+    this.props.vote({ card: null });
+    socket.emit('vote', { card: null });
   }
 
   render() {
@@ -48,7 +56,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  chooseCard
+  chooseCard,
+  vote
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ThumbCards);

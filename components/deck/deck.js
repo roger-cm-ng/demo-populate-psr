@@ -3,6 +3,7 @@ import styleable from 'react-styleable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import openSocket from 'socket.io-client';
 import css from './deck.scss';
 import { acquireEstimations } from './deck-actions';
 import Card from '../card/card';
@@ -16,7 +17,32 @@ class Deck extends Component {
   };
 
   componentDidMount() {
-    this.props.acquireEstimations();
+    const socket = openSocket('#BASE_URL#');
+    socket.on('message', (payload) => {
+      this.props.acquireEstimations(payload);
+    });
+  }
+
+  renderUser = (item, ind) => {
+    let elm = <div key={ind} />;
+    if (item.card) {
+      elm = (
+        <div key={ind}>
+          <Card
+            className={css.thumb}
+            svg={item.card}
+          />
+          <Initial
+            firstName={item.firstName}
+            lastName={item.lastName}
+            color={item.color}
+            className={css.initial}
+          />
+        </div>
+      );
+    }
+
+    return elm;
   }
 
   render() {
@@ -24,20 +50,7 @@ class Deck extends Component {
     return (
       <div className={css.deck}>
         {
-          deckReducer.map((item, ind) => (
-            <div key={ind}>
-              <Card
-                className={css.thumb}
-                svg={item.card}
-              />
-              <Initial
-                firstName={item.firstName}
-                lastName={item.lastName}
-                color={item.color}
-                className={css.initial}
-              />
-            </div>
-          ))
+          deckReducer.map((item, ind) => this.renderUser(item, ind))
         }
       </div>
     );

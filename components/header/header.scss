@@ -29,12 +29,15 @@
     flex-grow: 0;
     align-items: center;
 
+    li {
+      cursor: pointer;
+    }
+
     .nav {
       padding: 0 20px;
       background-color: #999;
       color: white;
       margin-right: 1px;
-      cursor: pointer;
       font-size: 12px;
       height: 100%;
       align-items: center;
@@ -44,17 +47,20 @@
         padding: 0 10px;
       }
     }
+
+    .initial-btn {
+      flex-grow: 0;
+      margin: 0 20px;
+
+      @media screen and (max-width: 400px) {
+        margin: 0 10px 0 1px;
+      }
+    }
   }
 }
 
-:global(.override).initial {
-  flex-grow: 0;
+:global(.override).initial-icon {
   width: 40px;
   height: 40px;
   font-size: 16px;
-  margin: 0 20px;
-
-  @media screen and (max-width: 400px) {
-    margin: 0 10px 0 1px;
-  }
 }

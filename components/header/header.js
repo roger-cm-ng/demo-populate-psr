@@ -44,12 +44,18 @@ class Header extends Component {
 
           {
             identityReducer.email ? (
-              <Initial
-                firstName={identityReducer.firstName}
-                lastName={identityReducer.lastName}
-                color={identityReducer.color}
-                className={css.initial}
-              />
+              <li
+                className={css['initial-btn']}
+                role="presentation"
+                onClick={() => { history.push('/login'); }}
+              >
+                <Initial
+                  firstName={identityReducer.firstName}
+                  lastName={identityReducer.lastName}
+                  color={identityReducer.color}
+                  className={css['initial-icon']}
+                />
+              </li>
             ) : (
               <li
                 className={css.nav}

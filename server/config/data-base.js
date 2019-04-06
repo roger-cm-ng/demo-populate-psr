@@ -31,7 +31,7 @@ export default class DataBase {
         if (collectionErr) {
           fail(403, { message: 'dB error' });
         } else if (doc.length === 0) {
-          fail(404, { message: 'Not found' });
+          fail(500, { message: 'Wrong pin number' });
         } else {
           success(doc);
         }
