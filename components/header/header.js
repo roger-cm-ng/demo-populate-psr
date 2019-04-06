@@ -23,14 +23,17 @@ class Header extends Component {
     const { history, identityReducer } = this.props;
     return (
       <div className={css.header}>
+        <div className={css.logo}>SCRUMMiE</div>
+        <div className={css.separator} />
         <ul className={css.shell}>
           <li
             className={css.nav}
             role="presentation"
             onClick={() => { history.push('/'); }}
           >
-            CARDS
+            HOME
           </li>
+
           <li
             className={css.nav}
             role="presentation"
@@ -38,6 +41,7 @@ class Header extends Component {
           >
             DECK
           </li>
+
           {
             identityReducer.email ? (
               <Initial

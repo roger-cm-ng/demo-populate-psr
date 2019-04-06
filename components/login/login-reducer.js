@@ -8,7 +8,7 @@ const initialState = {
   isValid: false,
   creds: {
     email: '',
-    password: ''
+    pin: ''
   }
 };
 

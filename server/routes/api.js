@@ -12,15 +12,38 @@ const verifyToken = (req, res, next) => {
 };
 
 Api.post('/authenticate', (req, res) => {
-  DataBase.getUser(
+  DataBase.getUsers(
     req.body,
     (data) => {
-      jwt.sign(data, jwtSecretKey, (err, token) => {
+      const {
+        email, firstName, lastName, color
+      } = data[0];
+      jwt.sign(data[0], jwtSecretKey, (err, token) => {
         res.status(200).json({
           token,
-          ...data
+          email,
+          firstName,
+          lastName,
+          color
         });
       });
+    },
+    (status, err) => {
+      res.status(status).json(err);
+    }
+  );
+});
+
+Api.get('/users', (req, res) => {
+  DataBase.getUsers(
+    {},
+    (data) => {
+      res.status(200).json(data.map(item => ({
+        email: item.email,
+        firstName: item.firstName,
+        lastName: item.lastName,
+        color: item.color
+      })));
     },
     (status, err) => {
       res.status(status).json(err);

@@ -73,4 +73,13 @@ export default class Resources {
       fail
     });
   }
+
+  static acquireUsers({ success, fail }) {
+    this.ajax({
+      endPoint: 'api/users',
+      method: 'GET',
+      success,
+      fail
+    });
+  }
 }

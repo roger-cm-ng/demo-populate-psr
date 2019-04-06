@@ -20,7 +20,7 @@ export default class DataBase {
     });
   }
 
-  static getUser(cred, success, fail) {
+  static getUsers(cred, success, fail) {
     if (!this.isConnected) {
       throw new Error('Error occurred while connecting to MongoDB Atlas...');
     }
@@ -33,15 +33,7 @@ export default class DataBase {
         } else if (doc.length === 0) {
           fail(404, { message: 'Not found' });
         } else {
-          const {
-            email, firstName, lastName, color
-          } = doc[0];
-          success({
-            email,
-            firstName,
-            lastName,
-            color
-          });
+          success(doc);
         }
       });
     });
