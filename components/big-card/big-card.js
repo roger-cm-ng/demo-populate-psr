@@ -4,16 +4,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import openSocket from 'socket.io-client';
+// import localStorage from 'local-storage';
 import css from './big-card.scss';
 import Card from '../card/card';
-import { vote } from './big-card-actions';
+// import { vote } from './big-card-actions';
 
 @styleable(css)
 class BigCard extends Component {
   static propTypes= {
     bigCardReducer: PropTypes.string,
     history: PropTypes.object,
-    vote: PropTypes.func
+    identityReducer: PropTypes.object
+    // vote: PropTypes.func
   };
 
   backToThumbCards = () => {
@@ -22,10 +24,17 @@ class BigCard extends Component {
   }
 
   componentDidMount() {
-    const { bigCardReducer } = this.props;
+    const { bigCardReducer, identityReducer } = this.props;
     const socket = openSocket('#BASE_URL#');
-    this.props.vote({ card: bigCardReducer });
-    socket.emit('vote', { card: bigCardReducer });
+    // this.props.vote({ card: bigCardReducer });
+    // const token = localStorage.get('token');
+    // if (!token) {
+    //   return;
+    // }
+    socket.emit('vote', {
+      card: bigCardReducer,
+      identity: identityReducer
+    });
   }
 
   render() {
@@ -42,11 +51,12 @@ class BigCard extends Component {
 }
 
 const mapStateToProps = state => ({
-  bigCardReducer: state.bigCardReducer
+  bigCardReducer: state.bigCardReducer,
+  identityReducer: state.identityReducer
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  vote
+  // vote
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(BigCard);

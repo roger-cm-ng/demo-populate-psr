@@ -3,9 +3,9 @@ import express from 'express';
 import compression from 'compression';
 import path from 'path';
 import http from 'http';
-import socketIo from 'socket.io';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import socketIo from 'socket.io';
 import index from './routes/index';
 import api from './routes/api';
 import DataBase from './config/data-base';
@@ -37,8 +37,9 @@ server.listen(app.get('port'), app.get('ip'), () => {
 });
 
 io.on('connection', (socket) => {
-  socket.on('vote', () => {
-    console.log('vote received');
+  console.log('socket connected');
+  socket.on('vote', (data) => {
+    Estimate.vote(data.card, data.identity);
     io.emit('message', Estimate.users);
   });
 });
