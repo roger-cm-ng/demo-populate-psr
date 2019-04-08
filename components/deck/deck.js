@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import openSocket from 'socket.io-client';
+import _ from 'lodash';
 import css from './deck.scss';
 import { acquireEstimations } from './deck-actions';
 import Card from '../card/card';
@@ -13,7 +14,7 @@ import Initial from '../initial/initial';
 class Deck extends Component {
   static propTypes = {
     acquireEstimations: PropTypes.func,
-    deckReducer: PropTypes.array
+    deckReducer: PropTypes.object
   };
 
   componentDidMount() {
@@ -47,10 +48,11 @@ class Deck extends Component {
 
   render() {
     const { deckReducer } = this.props;
+    const usersArr = _.map(deckReducer, val => val);
     return (
       <div className={css.deck}>
         {
-          deckReducer.map((item, ind) => this.renderUser(item, ind))
+          usersArr.map((item, ind) => this.renderUser(item, ind))
         }
       </div>
     );

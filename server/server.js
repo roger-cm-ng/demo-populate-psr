@@ -39,8 +39,7 @@ server.listen(app.get('port'), app.get('ip'), () => {
 io.on('connection', (socket) => {
   console.log('socket connected');
   socket.on('vote', (data) => {
-    Estimate.vote(data.card, data.identity);
-    io.emit('message', Estimate.users);
+    io.emit('message', Estimate.vote(data.card, data.identity));
   });
 });
 
