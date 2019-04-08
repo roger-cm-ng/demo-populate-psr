@@ -88,6 +88,7 @@ class Login extends Component {
           placeholder="PIN"
           type="password"
           maxLength="4"
+          inputMode="numeric"
           onChange={(evt) => { this.pinHandler(evt, 'pin'); }}
         />
       </div>
