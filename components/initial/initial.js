@@ -1,29 +1,32 @@
 import React from 'react';
 import styleable from 'react-styleable';
 import PropTypes from 'prop-types';
+import randomColor from 'randomcolor';
 import css from './initial.scss';
 
-const getInitial = (firstName, lastName) => {
-  const firstChar = firstName[0].toUpperCase();
-  const secondChar = lastName[0].toUpperCase();
-  return `${firstChar}${secondChar}`;
+const getInitial = (fullName) => {
+  console.log(/\w+([ ]+\w+){1,2}/.test(fullName));
+  if (!/\w+([ ]+\w+){1,2}/.test(fullName)) {
+    return '';
+  }
+
+  const fullNameArr = fullName.split(' ');
+  return `${fullNameArr[0].toUpperCase()}${fullNameArr[1].toUpperCase()}`;
 };
 
 const Initial = ({
-  firstName, lastName, color, className
+  fullName, className
 }) => (
   <div
     className={`${css.initial} override ${className}`}
-    style={{ backgroundColor: `#${color}` }}
+    style={{ backgroundColor: `${randomColor({ luminosity: 'dark' })}` }}
   >
-    {getInitial(firstName, lastName)}
+    {getInitial(fullName)}
   </div>
 );
 
 Initial.propTypes = {
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
-  color: PropTypes.string,
+  fullName: PropTypes.string,
   className: PropTypes.string
 };
 

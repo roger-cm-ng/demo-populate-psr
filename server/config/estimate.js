@@ -8,7 +8,6 @@ export default class Estimate {
       lastName: userData.lastName,
       color: userData.color
     };
-    console.log(this.users);
     return this.users;
   }
 }

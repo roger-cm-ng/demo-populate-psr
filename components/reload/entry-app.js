@@ -13,6 +13,7 @@ import ThumbCards from '../thumb-cards/thumb-cards';
 import BigCard from '../big-card/big-card';
 import { handleDefaults } from '../helpers/utils';
 import './core.scss';
+import Socket from '../helpers/socket';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
@@ -29,6 +30,8 @@ export default class EntryApp {
       ReloadCombinedReducers,
       window.devToolsExtension ? window.devToolsExtension() : f => f
     );
+
+    Socket.init();
 
     ReactDom.render(
       <Provider store={store}>

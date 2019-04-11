@@ -4,110 +4,51 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import css from './login.scss';
-import {
-  authenticate, inputText, acquireUsers, showOneUser, showAllUsers
-} from './login-actions';
-import Initial from '../initial/initial';
+import { inputText } from './login-actions';
 
 @styleable(css)
 class Login extends Component {
   static propTypes = {
     history: PropTypes.object,
-    authenticate: PropTypes.func,
-    inputText: PropTypes.func,
-    loginReducer: PropTypes.object,
-    acquireUsers: PropTypes.func,
-    usersReducer: PropTypes.array,
-    showOneUser: PropTypes.func,
-    showAllUsers: PropTypes.func
+    inputText: PropTypes.func
   };
 
-  pinHandler = (evt, key) => {
-    const { loginReducer, history } = this.props;
+  fullNameHandler = (evt, key) => {
     this.props.inputText(key, evt.target.value);
-    if (evt.target.value.length === 4) {
-      this.props.authenticate(loginReducer.creds, history);
-    }
   }
 
-  emailHandler = (email) => {
-    const { usersReducer } = this.props;
-    this.props.showOneUser(email, usersReducer);
-    this.props.inputText('email', email);
-  }
-
-  showAllUsers = () => {
-    const { usersReducer } = this.props;
-    this.props.showAllUsers(usersReducer);
-    this.props.inputText('email', '');
-  }
-
-  componentDidMount() {
-    this.props.acquireUsers();
-    this.props.inputText('email', '');
+  submit = () => {
+    this.props.history.push('/');
   }
 
   render() {
-    const { usersReducer, loginReducer } = this.props;
-
     return (
       <div className={css.login}>
-        <div
-          className={`${css['show-all-users']} ${loginReducer.creds.email.length > 0 ? css.show : css.hide}`}
-        >
-          <div
-            role="presentation"
-            className={css['show-all-users-btn']}
-            onClick={this.showAllUsers}
-          >
-            ← Show all users
-          </div>
-        </div>
-        <ul
-          className={css.shell}
-        >
-          {
-            usersReducer.map((item, ind) => (
-              <li
-                key={ind}
-                role="presentation"
-                className={`${css.icon} ${item.show ? css.show : css.hide}`}
-                onClick={() => { this.emailHandler(item.email); }}
-              >
-                <Initial
-                  firstName={item.firstName}
-                  lastName={item.lastName}
-                  color={item.color}
-                />
-              </li>
-            ))
-          }
-        </ul>
         <input
-          className={`${css.pin} ${loginReducer.creds.email.length > 0 ? css.show : css.hide}`}
-          placeholder="PIN"
-          type="password"
-          maxLength="4"
-          inputMode="numeric"
-          onChange={(evt) => { this.pinHandler(evt, 'pin'); }}
+          className={css['full-name']}
+          placeholder="Full name"
+          type="text"
+          onChange={(evt) => { this.fullNameHandler(evt, 'fullName'); }}
         />
+        <div
+          role="presentation"
+          onClick={this.submit}
+          className={css.submit}
+        >
+          Submit
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  loginReducer: state.loginReducer,
-  usersReducer: state.usersReducer
+  identityReducer: state.loginReducer
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(
   {
-    authenticate,
-    inputText,
-    acquireUsers,
-    showOneUser,
-    showAllUsers
+    inputText
   },
   dispatch
 );
