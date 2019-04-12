@@ -21,6 +21,10 @@ class BigCard extends Component {
 
   componentDidMount() {
     const { bigCardReducer, identityReducer } = this.props;
+    if (identityReducer.initial.length === 0 || identityReducer.deck.length === 0) {
+      return;
+    }
+
     Socket.emit('vote', {
       card: bigCardReducer,
       identity: identityReducer

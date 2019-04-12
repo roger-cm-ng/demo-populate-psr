@@ -3,39 +3,83 @@ import styleable from 'react-styleable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import Select from 'react-dropdown-select';
+import localStorage from 'local-storage';
 import css from './login.scss';
-import { inputText } from './login-actions';
+import { inputIdentity, acquireDecks } from './login-actions';
+import { toggleLogin } from '../header/header-actions';
+import Socket from '../helpers/socket';
 
 @styleable(css)
 class Login extends Component {
   static propTypes = {
-    history: PropTypes.object,
-    inputText: PropTypes.func
+    inputIdentity: PropTypes.func,
+    acquireDecks: PropTypes.func,
+    toggleLogin: PropTypes.func,
+    identityReducer: PropTypes.object,
+    dropdownReducer: PropTypes.array,
+    bigCardReducer: PropTypes.string
   };
 
-  fullNameHandler = (evt, key) => {
-    this.props.inputText(key, evt.target.value);
+  inputHandler = (key, val) => {
+    this.props.inputIdentity(key, val);
   }
 
-  submit = () => {
-    this.props.history.push('/');
+  selectHandler = (key, val) => {
+    this.props.inputIdentity(key, val.length > 0 ? val[0].name : '');
+  }
+
+  join = () => {
+    const { bigCardReducer, identityReducer } = this.props;
+    this.props.toggleLogin(true);
+
+    Socket.emit('join-deck', identityReducer.deck);
+
+    Socket.on('deck-joined', () => {
+      Socket.emit('vote', {
+        card: bigCardReducer,
+        identity: identityReducer
+      });
+    });
+
+    localStorage.set('identity', identityReducer);
+  }
+
+  componentDidMount() {
+    this.props.acquireDecks();
   }
 
   render() {
+    const { identityReducer, dropdownReducer } = this.props;
     return (
       <div className={css.login}>
         <input
-          className={css['full-name']}
-          placeholder="Full name"
+          className={css.initial}
+          placeholder="Initial"
           type="text"
-          onChange={(evt) => { this.fullNameHandler(evt, 'fullName'); }}
+          maxLength="2"
+          onChange={(evt) => { this.inputHandler('initial', evt.target.value); }}
         />
+
+        <Select
+          searchable
+          create
+          clearable
+          className={`select ${identityReducer.initial.length > 0 ? css.show : css.hide}`}
+          labelField="name"
+          valueField="name"
+          options={dropdownReducer}
+          onChange={(val) => { this.selectHandler('deck', val); }}
+          placeholder="Deck"
+          values={dropdownReducer}
+        />
+
         <div
           role="presentation"
-          onClick={this.submit}
-          className={css.submit}
+          onClick={this.join}
+          className={`${css.join} ${identityReducer.initial.length > 0 && identityReducer.deck.length ? css.show : css.hide}`}
         >
-          Submit
+          Join
         </div>
       </div>
     );
@@ -43,12 +87,16 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  identityReducer: state.loginReducer
+  identityReducer: state.identityReducer,
+  dropdownReducer: state.dropdownReducer,
+  bigCardReducer: state.bigCardReducer
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(
   {
-    inputText
+    inputIdentity,
+    acquireDecks,
+    toggleLogin
   },
   dispatch
 );

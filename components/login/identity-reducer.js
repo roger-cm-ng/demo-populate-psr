@@ -1,8 +1,11 @@
 import _ from 'lodash';
-import { TEXT_INPUTTED } from './login-actions';
+import randomColor from 'randomcolor';
+import { TEXT_INPUTTED, LOCAL_STORAGE_DATA_ACQUIRED } from './login-actions';
 
 const initialState = {
-  fullName: ''
+  initial: '',
+  color: randomColor({ luminosity: 'dark' }),
+  deck: ''
 };
 
 export default function (state = initialState, action) {
@@ -12,6 +15,10 @@ export default function (state = initialState, action) {
       const cloned = _.clone(state);
       cloned[key] = val;
       return cloned;
+    }
+
+    case LOCAL_STORAGE_DATA_ACQUIRED: {
+      return action.payload;
     }
 
     default:

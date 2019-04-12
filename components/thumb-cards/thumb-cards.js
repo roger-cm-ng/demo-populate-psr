@@ -32,6 +32,10 @@ class ThumbCards extends Component {
 
   componentDidMount() {
     const { identityReducer } = this.props;
+    if (identityReducer.initial.length === 0 || identityReducer.deck.length === 0) {
+      return;
+    }
+
     Socket.emit('vote', {
       card: null,
       identity: identityReducer

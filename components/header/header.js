@@ -2,19 +2,23 @@ import React, { Component } from 'react';
 import styleable from 'react-styleable';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import css from './header.scss';
 import Initial from '../initial/initial';
 import Login from '../login/login';
+import { toggleLogin } from './header-actions';
 
 @styleable(css)
 class Header extends Component {
   static propTypes = {
     history: PropTypes.object,
-    identityReducer: PropTypes.object
+    identityReducer: PropTypes.object,
+    headerReducer: PropTypes.object,
+    toggleLogin: PropTypes.func
   };
 
   render() {
-    const { history, identityReducer } = this.props;
+    const { history, identityReducer, headerReducer } = this.props;
     return (
       <div className={css.header}>
         <div className={css['top-bar']}>
@@ -38,15 +42,14 @@ class Header extends Component {
             </li>
 
             {
-              identityReducer.fullName.length > 0 ? (
+              identityReducer.initial.length > 0 ? (
                 <li
                   className={css['initial-btn']}
                   role="presentation"
-                  onClick={() => { history.push('/login'); }}
+                  onClick={() => { this.props.toggleLogin(headerReducer.login); }}
                 >
                   <Initial
-                    firstName={identityReducer.firstName}
-                    lastName={identityReducer.lastName}
+                    initial={identityReducer.initial}
                     color={identityReducer.color}
                     className={css['initial-icon']}
                   />
@@ -55,7 +58,7 @@ class Header extends Component {
                 <li
                   className={css.nav}
                   role="presentation"
-                  onClick={() => { history.push('/login'); }}
+                  onClick={() => { this.props.toggleLogin(headerReducer.login); }}
                 >
                   LOGIN
                 </li>
@@ -63,14 +66,26 @@ class Header extends Component {
             }
           </ul>
         </div>
-        <Login />
+        <div
+          className={headerReducer.login ? css.show : css.hide}
+        >
+          <Login />
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  identityReducer: state.identityReducer
+  identityReducer: state.identityReducer,
+  headerReducer: state.headerReducer
 });
 
-export default connect(mapStateToProps, null)(Header);
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    toggleLogin
+  },
+  dispatch
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

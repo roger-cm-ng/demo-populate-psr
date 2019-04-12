@@ -8,7 +8,6 @@ import bodyParser from 'body-parser';
 import socketIo from 'socket.io';
 import index from './routes/index';
 import api from './routes/api';
-import DataBase from './config/data-base';
 import Estimate from './config/estimate';
 
 const port = 3000;
@@ -24,8 +23,6 @@ app.use(cookieParser());
 
 app.set('port', process.env.PORT || port);
 
-DataBase.init();
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -38,8 +35,18 @@ server.listen(app.get('port'), app.get('ip'), () => {
 
 io.on('connection', (socket) => {
   console.log('socket connected');
+
+  socket.on('join-deck', (room) => {
+    socket.join(room);
+    socket.emit('deck-joined');
+  });
+
   socket.on('vote', (data) => {
-    io.emit('message', Estimate.vote(data.card, data.identity));
+    socket.to(data.identity.deck).emit('get-deck', Estimate.vote(data));
+  });
+
+  socket.on('get-decks', () => {
+    io.emit('get-decks', [{ name: 'mediamoguls' }]);
   });
 });
 

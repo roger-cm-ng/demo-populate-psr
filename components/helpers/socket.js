@@ -10,4 +10,8 @@ export default class Socket {
   static emit(evt, payload) {
     this.socket.emit(evt, payload);
   }
+
+  static on(evt, success) {
+    this.socket.on(evt, success);
+  }
 }

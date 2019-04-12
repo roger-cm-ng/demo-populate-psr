@@ -72,6 +72,7 @@
     "raw-loader": "^2.0.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
+    "react-dropdown-select": "^2.2.3",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
     "react-styleable": "^3.3.1",

@@ -1,23 +1,8 @@
-import localStorage from 'local-storage';
-import Resources from '../helpers/resources';
+// import localStorage from 'local-storage';
 
-export const AUTHENTICATED = 'AUTHENTICATED';
+export const LOGIN_TOGGLED = 'LOGIN_TOGGLED';
 
-export const verifyUser = () => (dispatch) => {
-  const token = localStorage.get('token');
-  if (!token) {
-    return;
-  }
-  Resources.verifyUser({
-    token,
-    success: (data) => {
-      dispatch({
-        type: AUTHENTICATED,
-        payload: data
-      });
-    },
-    fail: (error) => {
-      throw new Error(error.status, error.message);
-    }
-  });
-};
+export const toggleLogin = currentLogin => ({
+  type: LOGIN_TOGGLED,
+  vis: !currentLogin
+});

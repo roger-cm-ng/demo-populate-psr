@@ -1,13 +1,24 @@
+import _ from 'lodash';
+
 export default class Estimate {
   static users = {};
 
-  static vote(card, userData) {
-    this.users[userData.email] = {
-      card,
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      color: userData.color
+  static vote(data) {
+    if (!_.has(this.users, data.identity.deck)) {
+      this.users[data.identity.deck] = {};
+    }
+
+    this.users[data.identity.deck][data.identity.initial] = {
+      card: data.card,
+      color: data.identity.color
     };
-    return this.users;
+
+    return _.map(this.users[data.identity.deck], (val, key) => (
+      {
+        initial: key,
+        card: val.card,
+        color: val.color
+      }
+    ));
   }
 }

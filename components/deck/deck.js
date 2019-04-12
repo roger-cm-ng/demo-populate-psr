@@ -3,23 +3,34 @@ import styleable from 'react-styleable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import openSocket from 'socket.io-client';
-import _ from 'lodash';
 import css from './deck.scss';
 import { acquireEstimations } from './deck-actions';
 import Card from '../card/card';
 import Initial from '../initial/initial';
+import Socket from '../helpers/socket';
 
 @styleable(css)
 class Deck extends Component {
   static propTypes = {
     acquireEstimations: PropTypes.func,
-    deckReducer: PropTypes.object
+    deckReducer: PropTypes.array,
+    identityReducer: PropTypes.object,
+    bigCardReducer: PropTypes.string
   };
 
   componentDidMount() {
-    const socket = openSocket('#BASE_URL#');
-    socket.on('message', (payload) => {
+    const { identityReducer, bigCardReducer } = this.props;
+
+    if (identityReducer.initial.length === 0 || identityReducer.deck.length === 0) {
+      return;
+    }
+
+    Socket.emit('vote', {
+      card: bigCardReducer,
+      identity: identityReducer
+    });
+
+    Socket.on('get-deck', (payload) => {
       this.props.acquireEstimations(payload);
     });
   }
@@ -34,8 +45,7 @@ class Deck extends Component {
             svg={item.card}
           />
           <Initial
-            firstName={item.firstName}
-            lastName={item.lastName}
+            initial={item.initial}
             color={item.color}
             className={css.initial}
           />
@@ -48,11 +58,10 @@ class Deck extends Component {
 
   render() {
     const { deckReducer } = this.props;
-    const usersArr = _.map(deckReducer, val => val);
     return (
       <div className={css.deck}>
         {
-          usersArr.map((item, ind) => this.renderUser(item, ind))
+          deckReducer.map((item, ind) => this.renderUser(item, ind))
         }
       </div>
     );
@@ -60,7 +69,9 @@ class Deck extends Component {
 }
 
 const mapStateToProps = state => ({
-  deckReducer: state.deckReducer
+  deckReducer: state.deckReducer,
+  identityReducer: state.identityReducer,
+  bigCardReducer: state.bigCardReducer
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(
