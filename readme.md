@@ -1,4 +1,4 @@
-# MATH-RITE
+# SUGARYART
 
 ## Installation
 - npm install
@@ -10,4 +10,4 @@
 - npm run lint -- --fix to fix eol issues
 
 ## Heroku
-- When master branch is pushed to origin, it will kick off a build on prod environment on Heroku - https://scrum-cards.herokuapp.com/
+- When master branch is pushed to origin, it will kick off a build on prod environment on Heroku

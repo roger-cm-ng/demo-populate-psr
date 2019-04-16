@@ -5,15 +5,12 @@ import path from 'path';
 import http from 'http';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import socketIo from 'socket.io';
 import index from './routes/index';
 import api from './routes/api';
-import Estimate from './config/estimate';
 
 const port = 3000;
 const app = express();
 const server = http.Server(app);
-const io = socketIo(server);
 
 app.use(compression());
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -31,23 +28,6 @@ app.use('/api', api);
 
 server.listen(app.get('port'), app.get('ip'), () => {
   console.log(`Server is running on port ${port}`);
-});
-
-io.on('connection', (socket) => {
-  console.log('socket connected');
-
-  socket.on('join-deck', (room) => {
-    socket.join(room);
-    socket.emit('deck-joined');
-  });
-
-  socket.on('vote', (data) => {
-    socket.to(data.identity.deck).emit('get-deck', Estimate.vote(data));
-  });
-
-  socket.on('get-decks', () => {
-    io.emit('get-decks', [{ name: 'mediamoguls' }]);
-  });
 });
 
 module.exports = app;
