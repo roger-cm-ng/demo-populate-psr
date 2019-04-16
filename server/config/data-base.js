@@ -7,7 +7,7 @@ export default class DataBase {
 
   static init() {
     const { MongoClient } = mongodb;
-    const uri = 'mongodb+srv://roger:5crum-card@scrum-vt9vg.gcp.mongodb.net/test?retryWrites=true';
+    const uri = 'mongodb+srv://roger:gula1310@cluster0-uvoyw.mongodb.net/test?retryWrites=true';
     this.dataBaseClient = new MongoClient(uri, { useNewUrlParser: true });
     this.dataBaseClient.connect((err) => {
       if (err) {
@@ -20,14 +20,16 @@ export default class DataBase {
     });
   }
 
-  static getUsers(cred, success, fail) {
+  static get({
+    db, lib, payload, success, fail
+  }) {
     if (!this.isConnected) {
       throw new Error('Error occurred while connecting to MongoDB Atlas...');
     }
 
     this.dataBaseClient.connect((err, client) => {
-      const collection = client.db('db').collection('users');
-      collection.find(cred).toArray((collectionErr, doc) => {
+      const collection = client.db(db).collection(lib);
+      collection.find(payload).toArray((collectionErr, doc) => {
         if (collectionErr) {
           fail(403, { message: 'dB error' });
         } else if (doc.length === 0) {

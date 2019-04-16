@@ -8,7 +8,7 @@ import { BrowserRouter as Router /* , Route */} from 'react-router-dom';
 import ReloadCombinedReducers from './reload-combined-reducers';
 import { handleDefaults } from '../helpers/utils';
 import './core.scss';
-import Socket from '../helpers/socket';
+// import Socket from '../helpers/socket';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
@@ -26,7 +26,7 @@ export default class EntryApp {
       window.devToolsExtension ? window.devToolsExtension() : f => f
     );
 
-    Socket.init();
+    // Socket.init();
 
     ReactDom.render(
       <Provider store={store}>
