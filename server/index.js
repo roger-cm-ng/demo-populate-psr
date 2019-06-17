@@ -6,8 +6,8 @@ import http from 'http';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import index from './routes/index';
-import api from './routes/api';
-import DB from './config/data-base';
+import { restRouter } from './api';
+import { connect } from './config/db';
 
 const port = 3000;
 const app = express();
@@ -25,9 +25,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use('/', index);
-app.use('/api', api);
+app.use('/api', restRouter);
 
-DB.init();
+connect();
 
 server.listen(app.get('port'), app.get('ip'), () => {
   console.log(`Server is running on port ${port}`);

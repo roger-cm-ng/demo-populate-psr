@@ -1,0 +1,1 @@
+export { picRouter } from './pic.router';
