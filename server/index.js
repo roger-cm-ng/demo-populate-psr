@@ -5,9 +5,11 @@ import path from 'path';
 import http from 'http';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
 import index from './routes/index';
 import { restRouter } from './api';
 import { connect } from './config/db';
+import swaggerDocument from './config/swagger.json';
 
 const port = 3000;
 const app = express();
@@ -26,6 +28,13 @@ app.set('view engine', 'ejs');
 
 app.use('/', index);
 app.use('/api', restRouter);
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    explorer: true
+  })
+);
 
 connect();
 

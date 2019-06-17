@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate';
 
 const { Schema } = mongoose;
 const picSchema = new Schema({
@@ -20,4 +21,5 @@ const picSchema = new Schema({
     type: Number
   }
 });
+picSchema.plugin(mongoosePaginate);
 export default mongoose.model('Pic', picSchema);

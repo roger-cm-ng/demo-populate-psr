@@ -1,0 +1,208 @@
+{
+  "swagger": "2.0",
+  "title" : "Sugaryart API Documentation",
+  "description" : "Sugaryart - all sweet things in life",
+  "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "2.0",
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "Pics",
+        "description": "API for Pics Endpoints"
+      }
+    ],
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths" :{
+      "/pics":{
+       "post":{
+         "tags": ["Pics"],
+         "summary": "API Endpoint for create Pic",
+         "description" : "Create new Pic in database",
+         "parameters":[
+           {
+             "name": "pic",
+             "description": "Pic params to create new pic",
+             "in": "body",
+             "required": "true",
+             "schema" : {
+               "$ref" : "#definitions/Pic"
+             }
+           }
+         ],
+         "produces" : ["application/json"],
+         "responses":{
+           "200":{
+             "description" : "New Pic Created",
+             "schema": {
+              "$ref" : "#definitions/Pic"
+             }
+           }
+         }
+       },
+       "get":{
+        "tags": ["Pics"],
+        "summary": "API Endpoint for find all Pic",
+        "description" : "Find all Pics from the database",
+        "parameters":[
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "Define the page index for the records",
+            "in": "query"
+          },
+          {
+            "name": "perPage",
+            "type": "integer",
+            "description": "Define the limiet for the records i.e 10",
+            "in": "query"
+          }
+        ],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "All the pics",
+            "schema": {
+             "$ref" : "#definitions/Pics"
+            }
+          }
+        }
+       }
+      },
+      "/pics/{id}":{
+        "parameters":[
+           {
+             "name" : "id",
+              "in": "path",
+              "required": "true",
+              "description": "id of the pic",
+              "type": "string"
+
+           }
+        ],
+        "get":{
+          "tags": ["Pics"],
+          "summary": "API Endpoint to find single Pic",
+          "description" : "Find one from the database",
+          "produces" : ["application/json"],
+          "responses":{
+            "200":{
+              "description" : "Pic has found",
+              "schema": {
+               "$ref" : "#definitions/Pic"
+              }
+            }
+          }
+        },
+        "delete":{
+          "tags": ["Pics"],
+          "summary": "API Endpoint to delete the Pic",
+          "description" : "Delete pic from the database",
+          "produces" : ["application/json"],
+          "responses":{
+            "200":{
+              "description" : "Pic has deleted",
+              "schema": {
+               "$ref" : "#definitions/Pic"
+              }
+            }
+          }
+        },
+        "put":{
+          "tags": ["Pics"],
+          "summary": "API Endpoint for update Pic",
+          "description" : "Update the existing Pic in database",
+          "parameters":[
+            {
+              "name": "pic",
+              "description": "Pic params to update the pic",
+              "in": "body",
+              "schema" : {
+                "$ref" : "#definitions/UpdatePic"
+              }
+            }
+          ],
+          "produces" : ["application/json"],
+          "responses":{
+            "200":{
+              "description" : "Pic has Updated",
+              "schema": {
+               "$ref" : "#definitions/Pic"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions":{
+      "Pic":{
+        "required": ["title","url"],
+        "properties":{
+          "_id": {
+            "type" : "string"
+          },
+          "title": {
+            "type" : "string"
+          },
+          "url": {
+            "type" : "string"
+          },
+          "blurb": {
+            "type" : "string"
+          },
+          "price": {
+            "type" : "number"
+          },
+          "limit": {
+            "type" : "integer",
+            "format" :"Int32"
+          }
+        }
+      },
+      "UpdatePic":{
+        "properties":{
+          "title": {
+            "type" : "string"
+          },
+          "url": {
+            "type" : "string"
+          },
+          "blurb": {
+            "type" : "string"
+          },
+          "price": {
+            "type" : "number"
+          },
+          "limit": {
+            "type" : "integer",
+            "format" :"Int32"
+          }
+        }
+      },
+      "Pics":{
+        "properties":{
+          "docs": {
+            "type" : "array",
+            "$ref": "#definitions/Pic"
+          },
+          "total": {
+            "type" : "integer"
+          },
+          "pages": {
+            "type" : "integer"
+          },
+          "limit": {
+            "type" : "integer"
+          },
+          "page":{
+            "type": "integer"
+          }
+        }
+      }
+    }
+}
