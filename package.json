@@ -1,16 +1,16 @@
 {
-  "name": "scrum-cards",
+  "name": "sugaryart",
   "version": "1.0.0",
   "description": "",
-  "main": "./server/bin/www",
+  "main": "./server/index.js",
   "scripts": {
     "webpack-prod": "webpack --config build-config/webpack.prod",
     "webpack-dev": "webpack --config build-config/webpack.dev -d",
-    "lint": "eslint \"server/**/*.js\" \"components/**/*.js\"",
-    "nodemon": "nodemon ./server/bin/www --exec \"npm run lint && node\"",
+    "lint": "eslint \"server/**/*.js\"",
+    "nodemon": "nodemon ./server/index.js --exec \"npm run lint && node\" --exec babel-node --presets @babel/preset-env",
     "dev": "concurrently \"npm:webpack-dev\" \"npm:nodemon\"",
     "heroku-postbuild": "if-env NODE_ENV=production && npm run webpack-prod",
-    "start": "node ./server/bin/www"
+    "start": "babel-node ./server/index.js"
   },
   "repository": {
     "type": "git",

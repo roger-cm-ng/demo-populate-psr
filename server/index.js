@@ -29,17 +29,6 @@ app.use('/api', api);
 
 DB.init();
 
-// setTimeout(() => {
-//   DB.get({
-//     payload: { email: 'creativexcitant@gmail.com' },
-//     db: 'administration',
-//     lib: 'users',
-//     success: (data) => {
-//       console.log(data[0]);
-//     }
-//   });
-// }, 3000);
-
 server.listen(app.get('port'), app.get('ip'), () => {
   console.log(`Server is running on port ${port}`);
 });
