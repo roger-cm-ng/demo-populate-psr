@@ -8,7 +8,7 @@ import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
 import index from './routes/index';
 import { restRouter } from './api';
-import { connect } from './config/db';
+// import { connect } from './config/db';
 import swaggerDocument from './config/swagger.json';
 
 const port = 3000;
@@ -36,7 +36,7 @@ app.use(
   })
 );
 
-connect();
+// connect();
 
 server.listen(app.get('port'), app.get('ip'), () => {
   console.log(`Server is running on port ${port}`);
