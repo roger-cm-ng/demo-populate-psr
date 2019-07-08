@@ -6,10 +6,12 @@ import http from 'http';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
+import passport from 'passport';
 import index from './routes/index';
-import { restRouter } from './api';
-// import { connect } from './config/db';
+import restRouter from './api';
+import connect from './config/db';
 import swaggerDocument from './config/swagger.json';
+import configJWTStrategy from './api/middlewares/passport-jwt';
 
 const port = 3000;
 const app = express();
@@ -20,6 +22,8 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
+configJWTStrategy();
 
 app.set('port', process.env.PORT || port);
 
@@ -36,7 +40,7 @@ app.use(
   })
 );
 
-// connect();
+connect();
 
 server.listen(app.get('port'), app.get('ip'), () => {
   console.log(`Server is running on port ${port}`);

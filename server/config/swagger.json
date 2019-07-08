@@ -19,6 +19,60 @@
     "consumes": ["application/json"],
     "produces": ["application/json"],
     "paths" :{
+      "/users/signup":{
+        "post":{
+          "tags": ["Users"],
+          "summary": "API Endpoint for create User",
+          "description" : "Create new User in database",
+          "parameters":[
+            {
+              "name": "user",
+              "description": "User params to regitser new user",
+              "in": "body",
+              "required": "true",
+              "schema" : {
+                "$ref" : "#definitions/User"
+              }
+            }
+          ],
+          "produces" : ["application/json"],
+          "responses":{
+            "200":{
+              "description" : "New user has Created",
+              "schema": {
+               "$ref" : "#definitions/SignupRsp"
+              }
+            }
+          }
+        }
+      },
+      "/users/login":{
+        "post":{
+          "tags": ["Users"],
+          "summary": "API Endpoint to login his/her account",
+          "description" : "Login user",
+          "parameters":[
+            {
+              "name": "user",
+              "description": "User params to login",
+              "in": "body",
+              "required": "true",
+              "schema" : {
+                "$ref" : "#definitions/UserLogin"
+              }
+            }
+          ],
+          "produces" : ["application/json"],
+          "responses":{
+            "200":{
+              "description" : "New user has loggedIn",
+              "schema": {
+               "$ref" : "#definitions/UserLoginRsp"
+              }
+            }
+          }
+        }
+      },
       "/pics":{
        "post":{
          "tags": ["Pics"],
@@ -33,7 +87,14 @@
              "schema" : {
                "$ref" : "#definitions/Pic"
              }
-           }
+           },
+           {
+              "name": "authorization",
+              "description": "Access token to authorize the user",
+              "in": "header",
+              "type": "string",
+              "required": true
+            }
          ],
          "produces" : ["application/json"],
          "responses":{
@@ -103,6 +164,15 @@
           "tags": ["Pics"],
           "summary": "API Endpoint to delete the Pic",
           "description" : "Delete pic from the database",
+          "parameters":[
+            {
+              "name": "authorization",
+              "description": "Access token to authorize the user",
+              "in": "header",
+              "type": "string",
+              "required": true
+            }
+          ],
           "produces" : ["application/json"],
           "responses":{
             "200":{
@@ -125,6 +195,13 @@
               "schema" : {
                 "$ref" : "#definitions/UpdatePic"
               }
+            },
+            {
+              "name": "authorization",
+              "description": "Access token to authorize the user",
+              "in": "header",
+              "type": "string",
+              "required": true
             }
           ],
           "produces" : ["application/json"],
@@ -140,6 +217,51 @@
       }
     },
     "definitions":{
+      "SignupRsp":{
+        "properties":{
+          "success": {
+            "type":"boolean"
+        }
+       }
+     },
+      "User":{
+        "required": ["firstName","lastName", "email", "password"],
+        "properties":{
+          "_id": {
+            "type" : "string"
+          },
+          "firstName": {
+            "type" : "string"
+          },
+          "lastName": {
+            "type" : "string"
+          },
+          "email": {
+            "type" : "string"
+          },
+          "password": {
+            "type" : "string"
+          }
+        }
+      },
+      "UserLogin":{
+        "required": ["email", "password"],
+        "properties":{
+          "email": {
+            "type" : "string"
+          },
+          "password": {
+            "type" : "string"
+          }
+        }
+      },
+      "UserLoginRsp":{
+        "properties":{
+          "token": {
+            "type" : "string"
+          }
+        }
+      },
       "Pic":{
         "required": ["title","url"],
         "properties":{

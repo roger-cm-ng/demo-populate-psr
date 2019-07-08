@@ -1,15 +1,20 @@
 import express from 'express';
+import passport from 'passport';
 import picController from './pic.controller';
+import isAdmin from '../../middlewares/is-admin';
 
-export const picRouter = express.Router();
+const adminPolicy = [passport.authenticate('jwt', { session: false }), isAdmin];
+
+const picRouter = express.Router();
 picRouter
   .route('/')
-  .post(picController.create)
+  .post(adminPolicy, picController.create)
   .get(picController.findAll);
 
 picRouter
   .route('/:id')
   .get(picController.findOne)
-  .delete(picController.delete)
-  .put(picController.update);
+  .delete(adminPolicy, picController.delete)
+  .put(adminPolicy, picController.update);
 
+export default picRouter;

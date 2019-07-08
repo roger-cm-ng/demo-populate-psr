@@ -1,5 +1,9 @@
 import express from 'express';
-import { picRouter } from './resources/pic';
+import picRouter from './resources/pic/pic.router';
+import userRouter from './resources/user/user.router';
 
-export const restRouter = express.Router();
+const restRouter = express.Router();
 restRouter.use('/pics', picRouter);
+restRouter.use('/users', userRouter);
+
+export default restRouter;

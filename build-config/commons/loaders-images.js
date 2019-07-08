@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function () {
     return {
         test: /\.(gif|png|jpe?g)$/i,
         exclude: /node_modules/,

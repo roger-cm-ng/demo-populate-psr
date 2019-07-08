@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 import Joi from 'joi';
 import Pic from './pic.model';
 
@@ -27,7 +29,7 @@ export default {
       const { page, perPage } = req.query;
       const options = {
         page: parseInt(page, 10) || 1,
-        limit: parseInt(perPage, 10) || 10,
+        limit: parseInt(perPage, 10) || 10
       };
       const pics = await Pic.paginate({}, options);
       return res.json(pics);
@@ -41,7 +43,7 @@ export default {
       const { id } = req.params;
       const pic = await Pic.findById(id);
       if (!pic) {
-        return res.status(404).json({err: 'Could not find pic'});
+        return res.status(404).json({ err: 'Could not find pic' });
       }
       return res.json(pic);
     } catch (err) {
@@ -52,9 +54,9 @@ export default {
   async delete(req, res) {
     try {
       const { id } = req.params;
-      const pic = await Pic.findOneAndRemove({_id: id});
+      const pic = await Pic.findOneAndRemove({ _id: id });
       if (!pic) {
-        return res.status(404).json({err: 'Could not find pic'});
+        return res.status(404).json({ err: 'Could not find pic' });
       }
       return res.json(pic);
     } catch (err) {

@@ -5,11 +5,11 @@ const { Schema } = mongoose;
 const picSchema = new Schema({
   title: {
     type: String,
-    required: [true, 'Pic must have title'],
+    required: [true, 'Pic must have title']
   },
   url: {
     type: String,
-    required: [true, 'Pic must have url'],
+    required: [true, 'Pic must have url']
   },
   blurb: {
     type: String

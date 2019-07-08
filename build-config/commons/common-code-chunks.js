@@ -4,7 +4,7 @@ module.exports = function exports() {
     return [
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            minChunks: function(module) {
+            minChunks(module) {
                 return module.resource && /node_modules/.test(module.resource);
             }
         }),
