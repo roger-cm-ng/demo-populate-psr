@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import { BrowserRouter as Router /* , Route */} from 'react-router-dom';
 import ReloadCombinedReducers from './reload-combined-reducers';
 import { handleDefaults } from '../helpers/utils';
-import Record from '../record/record';
+import RecordAudioEdit from '../record-audio-edit/record-audio-edit';
 import './core.scss';
 // import Socket from '../helpers/socket';
 
@@ -33,7 +33,7 @@ export default class EntryApp {
       <Provider store={store}>
         <Router>
           <div>
-            <Record />
+            <RecordAudioEdit />
             {/* <Route
               path="/"
               component={Header}
