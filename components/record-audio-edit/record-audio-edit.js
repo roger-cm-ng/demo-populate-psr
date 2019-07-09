@@ -19,6 +19,7 @@ export default class ReactAudioEdit extends React.Component {
     this.setState({ isLoading: true });
 
     if (this.state.isRecording) {
+      console.log('stop recording');
       const blob = await recorder.stopRecording();
       this.setState({
         isLoading: false,
@@ -27,19 +28,21 @@ export default class ReactAudioEdit extends React.Component {
       });
     } else {
       try {
+        console.log('init audio');
         await recorder.initAudio();
+        console.log('init worker');
         await recorder.initWorker();
+        console.log('start recording');
         recorder.startRecording();
         this.setState({ isLoading: false, isRecording: true });
       } catch (e) {
-        console.log(e);
+        console.log('error caught', e);
         this.setState({ isLoading: false });
       }
     }
   };
 
   render() {
-    console.log(this.state);
     const { isLoading, isRecording, recordings } = this.state;
     return (
       <React.Fragment>
