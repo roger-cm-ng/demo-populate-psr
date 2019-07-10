@@ -1,6 +1,8 @@
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 const commons = require('./commons');
+
 
 module.exports = {
     resolve: commons.resolve(),
@@ -14,7 +16,8 @@ module.exports = {
         new ProgressBarPlugin(),
         commons.stylelintPlugin(),
         commons.hashedModuleIds(),
-        ...commons.commonCodeChunksPlugin()
+        ...commons.commonCodeChunksPlugin(),
+        new CopyPlugin([{ from: 'assets/vmsg.wasm', to: '../' }])
     ],
 
     devServer: commons.devServer(),
