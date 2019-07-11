@@ -5,7 +5,7 @@ import React from 'react';
 import vmsg from 'vmsg/vmsg.es5';
 
 const recorder = new vmsg.Recorder({
-  wasmURL: 'https://sugaryart-demo.herokuapp.com/vmsg/vmsg.wasm'
+  wasmURL: 'http://localhost:3000/vmsg/vmsg.wasm'
 });
 
 export default class ReactAudioEdit extends React.Component {
