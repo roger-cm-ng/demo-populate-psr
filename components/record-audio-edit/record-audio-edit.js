@@ -30,7 +30,7 @@ export default class ReactAudioEdit extends React.Component {
       });
     } else {
       try {
-        recorder.init()
+        recorder.init();
         // .then(recorder.initAudio());
         // .then(recorder.initWorker())
         // .then(recorder.startRecording());
