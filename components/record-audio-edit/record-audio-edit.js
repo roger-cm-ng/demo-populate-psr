@@ -5,7 +5,7 @@ import React from 'react';
 import vmsg from 'vmsg/vmsg.es5';
 
 const recorder = new vmsg.Recorder({
-  wasmURL: 'http://localhost:3000/vmsg/vmsg.wasm'
+  wasmURL: 'https://sugaryart-demo.herokuapp.com/vmsg/vmsg.wasm'
 });
 
 export default class ReactAudioEdit extends React.Component {
@@ -28,12 +28,12 @@ export default class ReactAudioEdit extends React.Component {
       });
     } else {
       try {
-        console.log('init audio');
         await recorder.initAudio();
-        console.log('init worker');
+        console.log('init audio');
         await recorder.initWorker();
-        console.log('start recording');
+        console.log('init worker');
         recorder.startRecording();
+        console.log('start recording');
         this.setState({ isLoading: false, isRecording: true });
       } catch (e) {
         console.log('error caught', e);
