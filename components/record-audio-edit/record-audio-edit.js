@@ -20,20 +20,20 @@ export default class ReactAudioEdit extends React.Component {
 
     if (this.state.isRecording) {
       console.log('stop recording');
-      recorder.stopRecording()
-      .then((blob) => {
-        this.setState({
-          isLoading: false,
-          isRecording: false,
-          recordings: this.state.recordings.concat(URL.createObjectURL(blob))
-        });
+      const blob = await recorder.stopRecording();
+      this.setState({
+        isLoading: false,
+        isRecording: false,
+        recordings: this.state.recordings.concat(URL.createObjectURL(blob))
       });
     } else {
       try {
-        recorder.init();
-        // .then(recorder.initAudio());
-        // .then(recorder.initWorker())
-        // .then(recorder.startRecording());
+        await recorder.initAudio();
+        console.log('init audio');
+        // await recorder.initWorker();
+        // console.log('init worker');
+        // recorder.startRecording();
+        // console.log('start recording');
         // this.setState({ isLoading: false, isRecording: true });
       } catch (e) {
         console.log('error caught', e);
