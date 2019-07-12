@@ -20,12 +20,12 @@ module.exports = webpackMerge(CommonConfig, {
                 NODE_ENV: JSON.stringify('production')
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            sourceMap: true
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     },
+        //     sourceMap: true
+        // }),
         new webpack.SourceMapDevToolPlugin({
             filename: './sourcemaps/[name].js.map'
         })

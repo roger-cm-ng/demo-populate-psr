@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/media-has-caption, no-console, react/button-has-type, react/no-access-state-in-setstate */
 
 import React from 'react';
-import vmsg from 'vmsg/vmsg.es5';
+import vmsg from 'vmsg';
 
 const recorder = new vmsg.Recorder({
   wasmURL: 'https://sugaryart-demo.herokuapp.com/vmsg/vmsg.wasm'
