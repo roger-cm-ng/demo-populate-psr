@@ -32,9 +32,9 @@ export default class ReactAudioEdit extends React.Component {
         console.log('init audio');
         await recorder.initWorker();
         console.log('init worker');
-        // recorder.startRecording();
-        // console.log('start recording');
-        // this.setState({ isLoading: false, isRecording: true });
+        recorder.startRecording();
+        console.log('start recording');
+        this.setState({ isLoading: false, isRecording: true });
       } catch (e) {
         console.log('error caught', e);
         this.setState({ isLoading: false });
