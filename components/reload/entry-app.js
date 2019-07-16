@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import { BrowserRouter as Router /* , Route */} from 'react-router-dom';
 import ReloadCombinedReducers from './reload-combined-reducers';
 import { handleDefaults } from '../helpers/utils';
-import RecordAudioEdit from '../record-audio-edit/record-audio-edit';
+import SpellBee from '../spell-bee/spell-bee';
 import './core.scss';
 // import Socket from '../helpers/socket';
 
@@ -27,36 +27,11 @@ export default class EntryApp {
       window.devToolsExtension ? window.devToolsExtension() : f => f
     );
 
-    // Socket.init();
-
     ReactDom.render(
       <Provider store={store}>
         <Router>
           <div>
-            <RecordAudioEdit />
-            {/* <Route
-              path="/"
-              component={Header}
-            />
-            <Route
-              exact
-              path="/login"
-              component={Login}
-            />
-            <Route
-              exact
-              path="/deck"
-              component={Deck}
-            />
-            <Route
-              exact
-              path="/"
-              component={ThumbCards}
-            />
-            <Route
-              path="/big-card"
-              component={BigCard}
-            /> */}
+            <SpellBee />
           </div>
         </Router>
       </Provider>,
