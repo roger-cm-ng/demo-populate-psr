@@ -49,7 +49,7 @@ const SpellBee = () => {
   const [numCorrect, setNumCorrect] = useState(0);
   const [currentAnswerStatus, setCurrentAnswerStatus] = useState(UNATTEMPTED);
   const [checkedDisable, setCheckDisable] = useState(false);
-  const [attemptedWords, setAttemptedWords] = useState([]);
+  // const [attemptedWords, setAttemptedWords] = useState([]);
   const [isComplete, setIsComplete] = useState(false);
 
   const init = (mode) => {
@@ -92,7 +92,7 @@ const SpellBee = () => {
   };
 
   useEffect(() => {
-    console.log(wordList);
+    // console.log(wordList);
   }, [wordList]);
 
   return (
