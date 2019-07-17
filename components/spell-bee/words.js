@@ -21,6 +21,7 @@ export const lg5 = ['acclimatise', 'brigadier', 'delirium', 'knowledgeable', 're
 export const lsc5 = ['cinematography', 'Acropolis', 'coalition', 'Afghanistan', 'cylindrical', 'contralto', 'cockatrice', 'cosmopolitan', 'bombora', 'Galileo', 'decrescendo', 'Confucius', 'discrimination', 'circumnavigate', 'hyperbola', 'expressionism', 'Egyptology', 'guarantor', 'crevasse', 'laboratory', 'flautist', 'Excalibur', 'inaugural', 'Gallipoli', 'parabola', 'glockenspiel', 'fiefdom', 'jurisdiction', 'meteorology', 'quadrilateral', 'haiku', 'Hercules', 'recession', 'Nullarbor', 'rhomboid', 'improvisation', 'megafauna', 'revolution', 'Pyrenees', 'statistician', 'karaoke', 'phoenix', 'superannuation', 'stalagmite', 'temperature', 'madrigal', 'primordial', 'symposium', 'Vesuvius', 'velocity', 'matinee', 'Michelangelo', 'mosaic', 'orchestra', 'rhapsody'];
 
 export const combinedAll = [...lg1, ...lsc1, ...lg2, ...lsc2, ...lg3, ...lsc3, ...lg4, ...lsc4, ...lg5, ...lsc5];
+export const last = ['matinee', 'Michelangelo'];
 
 export const randWords = (itemsFromArray) => {
   const arrlg1 = random(lg1, itemsFromArray);
