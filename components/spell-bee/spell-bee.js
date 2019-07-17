@@ -130,7 +130,7 @@ const SpellBee = () => {
             onClick={() => init(modeNum)}
             disabled={!isComplete}
           >
-            Start again
+            Restart
           </button>
         </div>
         <div className={css.score}>
@@ -152,9 +152,9 @@ const SpellBee = () => {
               type="text"
               onChange={e => setCurrentWord(e.target.value)}
               value={currentWord}
-              autoComplete={false}
-              autoCorrect={false}
-              autoCapitalize={false}
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
               spellCheck={false}
             />
             <div>

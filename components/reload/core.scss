@@ -131,9 +131,11 @@
   }
 }
 
-body,
-html {
-  * {
-    font-family: 'poppins', 'arial';
+:global {
+  body,
+  html {
+    * {
+      font-family: 'poppins', 'arial';
+    }
   }
 }
