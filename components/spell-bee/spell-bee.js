@@ -1,7 +1,13 @@
+/* eslint-disable no-nested-ternary, react/jsx-no-target-blank */
+
 import React, { useState } from 'react';
 import vocabulator from 'vocabulator';
+import Svg from 'react-svg-inline';
 import { combinedAll, randWords } from './words';
 import css from './spell-bee.scss';
+import bee from '../../assets/bee.svg';
+import tick from '../../assets/tick.svg';
+import cross from '../../assets/cross.svg';
 
 const synthesizer = vocabulator({
   language: 'en-AU',
@@ -102,7 +108,9 @@ const SpellBee = () => {
     <div className={css['spell-bee']}>
       <div className={css.container}>
         <div className={css.header}>
+          <Svg svg={bee} className={css.logo} />
           <select
+            className={css.dropdown}
             onChange={e => init(e.target.value)}
           >
             {
@@ -125,9 +133,13 @@ const SpellBee = () => {
             Start again
           </button>
         </div>
+        <div className={css.score}>
+          <p className={css.txt}>{`Score: ${numCorrect} / ${wordList.length}`}</p>
+          <p className={css.txt}>{`Attempt ${wordCount + 1} / ${wordList.length}`}</p>
+        </div>
         <div className={css.content}>
-          <p>{`Score: ${numCorrect} / ${wordList.length} | Attempt ${wordCount + 1} / ${wordList.length}`}</p>
           <button
+            className={css.say}
             type="button"
             onClick={handleSay}
           >
@@ -136,30 +148,43 @@ const SpellBee = () => {
 
           <div className={css.answer}>
             <input
+              className={css.typed}
               type="text"
               onChange={e => setCurrentWord(e.target.value)}
               value={currentWord}
+              autoComplete={false}
+              autoCorrect={false}
+              autoCapitalize={false}
+              spellCheck={false}
             />
-            <p>{currentAnswerStatus === UNATTEMPTED ? '' : currentAnswerStatus}</p>
+            <div>
+              {currentAnswerStatus === UNATTEMPTED ? '' : (currentAnswerStatus === CORRECT ? (
+                <Svg svg={tick} className={css['btn-tick']} />
+              ) : (
+                <Svg svg={cross} className={css['btn-cross']} />
+              ))}
+            </div>
           </div>
 
-          <p>{currentAnswerStatus === WRONG ? wordList[wordCount] : ''}</p>
+          <p className={`${css.txt} ${css['correct-answer']}`}>{currentAnswerStatus === WRONG ? wordList[wordCount] : ''}</p>
 
-          <button
-            type="button"
-            onClick={handleCheck}
-            disabled={checkedDisable}
-          >
-            Check
-          </button>
+          <div className={css['btn-check-next']}>
+            <button
+              type="button"
+              onClick={handleCheck}
+              disabled={checkedDisable}
+            >
+              Check
+            </button>
 
-          <button
-            type="button"
-            onClick={handleNext}
-            disabled={!checkedDisable || isComplete}
-          >
-            Next
-          </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              disabled={!checkedDisable || isComplete}
+            >
+              Next
+            </button>
+          </div>
         </div>
         {
           isComplete && (
@@ -172,6 +197,16 @@ const SpellBee = () => {
             </ul>
           )
         }
+        <div className={css.credit}>
+Icons made by
+          <a href="https://www.freepik.com/?__hstc=57440181.c85c9071eae03f97b7b9063c4ba15d24.1563364323503.1563364323503.1563373434056.2&__hssc=57440181.4.1563373434056&__hsfp=1817208826" title="Freepik">Freepik</a>
+          {' '}
+from
+          <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+          {' '}
+is licensed by
+          <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+        </div>
       </div>
     </div>
   );
