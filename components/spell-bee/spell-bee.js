@@ -152,7 +152,7 @@ const SpellBee = () => {
               type="text"
               onChange={e => setCurrentWord(e.target.value)}
               value={currentWord}
-              autoComplete="off"
+              autoComplete="new-password"
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck={false}
