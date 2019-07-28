@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import vocabulator from 'vocabulator';
 import Svg from 'react-svg-inline';
-import { combinedAll, randWords } from './words';
+import { combinedAll, randWords, specificLevel } from './words';
 import css from './spell-bee.scss';
 import bee from '../../assets/bee.svg';
 import tick from '../../assets/tick.svg';
@@ -40,6 +40,46 @@ const modes = [
   {
     label: 'All 1000',
     value: 0
+  },
+  {
+    label: 'Level 1',
+    value: 21
+  },
+  {
+    label: 'Level 1 Special Category',
+    value: 22
+  },
+  {
+    label: 'Level 2',
+    value: 23
+  },
+  {
+    label: 'Level 2 Special Category',
+    value: 24
+  },
+  {
+    label: 'Level 3',
+    value: 25
+  },
+  {
+    label: 'Level 3 Special Category',
+    value: 26
+  },
+  {
+    label: 'Level 4',
+    value: 27
+  },
+  {
+    label: 'Level 4 Special Category',
+    value: 28
+  },
+  {
+    label: 'Level 5',
+    value: 29
+  },
+  {
+    label: 'Level 5 Special Category',
+    value: 30
   }
 ];
 
@@ -61,6 +101,26 @@ const SpellBee = () => {
   const init = (mode) => {
     if (Number(mode) === 0) {
       setWordList(combinedAll);
+    } else if (Number(mode) === 21) {
+      setWordList(specificLevel('lg1', 20));
+    } else if (Number(mode) === 22) {
+      setWordList(specificLevel('lsc1', 20));
+    } else if (Number(mode) === 23) {
+      setWordList(specificLevel('lg2', 20));
+    } else if (Number(mode) === 24) {
+      setWordList(specificLevel('lsc2', 20));
+    } else if (Number(mode) === 25) {
+      setWordList(specificLevel('lg3', 20));
+    } else if (Number(mode) === 26) {
+      setWordList(specificLevel('lsc3', 20));
+    } else if (Number(mode) === 27) {
+      setWordList(specificLevel('lg4', 20));
+    } else if (Number(mode) === 28) {
+      setWordList(specificLevel('lsc4', 20));
+    } else if (Number(mode) === 29) {
+      setWordList(specificLevel('lg5', 20));
+    } else if (Number(mode) === 30) {
+      setWordList(specificLevel('lsc5', 20));
     } else {
       setWordList(randWords(mode));
     }
