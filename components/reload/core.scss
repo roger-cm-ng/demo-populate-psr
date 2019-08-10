@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Muli:400,400i,700,700i&display=swap');
 
 :global {
   html,
@@ -85,8 +85,9 @@
     margin: 0;
     padding: 0;
     border: 0;
-    font: 100% arial;
+    font: 100% muli;
     vertical-align: baseline;
+    box-sizing: border-box;
   }
 
   article,
@@ -134,8 +135,6 @@
 :global {
   body,
   html {
-    * {
-      font-family: 'poppins', 'arial';
-    }
+    background-color: #00abe8;
   }
 }
