@@ -14,6 +14,8 @@
     padding: 20px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    align-content: flex-start;
 
     .btn {
       border-radius: 30px;
@@ -24,6 +26,7 @@
       outline: none;
       margin: 0 10px;
       cursor: pointer;
+      margin-bottom: 20px;
 
       &:hover {
         background-color: #3477c7;
