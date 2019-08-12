@@ -2,17 +2,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import css from './list.scss';
-
-const questions = [
-  {
-    label: 'Double dimension',
-    girlId: 'GiRL012556'
-  },
-  {
-    label: 'Number shuffle',
-    girlId: 'GiRL012766'
-  }
-];
+import questions from './questions';
 
 const List = () => {
   const linksReducer = useSelector(state => state.linksReducer);
@@ -29,7 +19,7 @@ const List = () => {
         className={css.bkgd}
       >
         {
-          questions.map(question => (
+          questions().map(question => (
             <button
               disabled={!linksReducer.authToken}
               onClick={() => questionHandler(question.girlId)}
