@@ -12,8 +12,12 @@ const questions = () => ([
     girlId: 'GiRL013086'
   },
   {
-    label: 'Transformation triangle',
-    girlId: 'GiRL012700'
+    label: 'Cat and mouse',
+    girlId: 'GiRL014620'
+  },
+  {
+    label: 'A revolution in ratios',
+    girlId: 'GiRL012782'
   },
   {
     label: 'Angles in triangles and parallel lines',
