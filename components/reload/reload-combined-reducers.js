@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import linksReducer from '../links/links-reducer';
+import migrateReducer from '../migrate/migrate-reducer';
+import usernamePasswordReducer from '../username-password/username-password-reducer';
 
 const ReloadCombinedReducers = combineReducers({
-  linksReducer
+  migrateReducer,
+  usernamePasswordReducer
 });
 
 export default ReloadCombinedReducers;
